@@ -18,11 +18,11 @@ class App extends React.Component {
       context: this,
       state: 'fishes'
     });
-  };
+  }
 
   componentWillUnmount() {
-    console.log('unmounting!!!!!!!!!');
-  };
+    base.removeBinding(this.ref);
+  }
 
   addFish = (fish) => {
     // Take a copy of existing state
