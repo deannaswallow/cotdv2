@@ -54,6 +54,13 @@ class App extends React.Component {
     });
   };
 
+  deleteFish = (key) => {
+    const fishes = {...this.state.fishes};
+    //to remove item from firebase, set it to null
+    fishes[key] = null;
+    this.setState({ fishes: fishes });
+  }
+
   loadSampleFishes = () => {
     this.setState({ fishes: sampleFishes });
   };
@@ -67,6 +74,13 @@ class App extends React.Component {
     this.setState({
       order: order
     });
+  };
+
+  removeFromOrder = (key) => {
+    const order = {...this.state.order};
+    //because this is in local storage, you can just delete
+    delete order[key]
+    this.setState({ order: order });
   };
 
   render() {
@@ -85,9 +99,14 @@ class App extends React.Component {
             ))}
           </ul>
         </div>
-        <Order fishes={this.state.fishes} order={this.state.order}/>
+        <Order
+          fishes={this.state.fishes}
+          order={this.state.order}
+          removeFromOrder={this.removeFromOrder}
+        />
         <Inventory
         addFish={this.addFish}
+        deleteFish={this.deleteFish}
         updateFish={this.updateFish}
         loadSampleFishes={this.loadSampleFishes}
         fishes={this.state.fishes}
